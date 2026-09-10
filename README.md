@@ -1,85 +1,84 @@
-# AI Readiness Score
+# AI Readiness Score — Streamlit Dashboard
 
-Measure how ready your Snowflake account's data is for AI products — Cortex Agents, Cortex Analyst, and Cortex Search — with a single Streamlit dashboard.
+A Streamlit-in-Snowflake dashboard that puts the [`ai-readiness-score`](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-code) skill's scoring methodology into the hands of business teams — with persistent run history, trend tracking, and the [AI-Ready Data Framework](https://github.com/Snowflake-Labs/ai-ready-data)'s 6-factor structural scan.
 
-## Why This Matters
+## Background
 
-Organisations building on Snowflake's AI stack face a common blind spot: **they don't know whether their data is actually ready for AI consumption.** They build semantic views without knowing which tables matter most. They add verified queries without tracking whether accuracy improves. They have no baseline and no way to measure progress.
+Cortex Code ships with a bundled **`ai-readiness-score` skill** that scores how ready an account's data is for Snowflake's AI products (Cortex Agents, Cortex Analyst, Cortex Search). It measures:
 
-This app fixes that by scoring two complementary dimensions:
+- **Consumption-Ready (CR) tables** — a Cobb-Douglas blend of activity, audience breadth, query speed, and data freshness
+- **Semantic View (SV) coverage and quality** — whether CR tables have SVs, and how well those SVs are modeled (PKs, synonyms, VQRs, relationships, metrics)
+- **A composite AI Readiness score** — `(Demand Coverage + SV Readiness) / 2`
 
-1. **Demand-side readiness** — Are your most-queried tables well-structured? Is analytical traffic concentrated on consumption-ready (CR) tables backed by semantic views?
-2. **Structural readiness** — Does your data meet the 6 factors of AI-ready data: Clean, Contextual, Consumable, Current, Correlated, and Compliant?
+The skill works well for a point-in-time assessment from the CLI. But it runs once, prints results, and moves on. There's no history, no trend, and no way to share results with stakeholders who don't use Cortex Code.
 
-The result is a single 0–100 AI Readiness Score that gives you a baseline, tracks progress over time, and tells you exactly what to fix next.
+## What This Project Adds
 
-## What It Does
+This project takes the `ai-readiness-score` skill's methodology and wraps it in a **persistent, shareable Streamlit app** that business teams can use directly in Snowsight — no CLI required. The key additions:
 
-A 3-tab Streamlit-in-Snowflake app that runs entirely inside your Snowflake account:
-
-| Tab | What it shows |
+| What | Why it matters |
 |---|---|
-| **Current Scan** | Composite AI Readiness score, demand coverage, SV readiness/coverage/quality metrics, radar chart, gap classification, and prioritised improvement actions |
-| **Run History** | Append-only scan history with trend charts — track score progression as you build SVs and add VQRs |
-| **6-Factor Scan** | Structural assessment across Clean, Contextual, Consumable, Current, Correlated, Compliant — scored per schema with drill-down |
+| **Run History** | Every scan is persisted to `SCAN_RUNS` / `SCAN_IMPROVEMENT_ITEMS`. Track your AI readiness score over weeks and months as you build SVs and add VQRs. Show before/after impact to stakeholders. |
+| **Trend Charts** | Visualise score progression over time — AI Readiness, Demand Coverage, and SV Readiness on a single trend line. |
+| **Gap Waterfall** | Each scan classifies the single most impactful gap and generates prioritised improvement actions. Business teams see exactly what to fix next and why. |
+| **6-Factor Scan** | A complementary structural assessment based on the [AI-Ready Data Framework](https://github.com/Snowflake-Labs/ai-ready-data) — 13 requirements across Clean, Contextual, Consumable, Current, Correlated, Compliant. Scored per schema with drill-down. |
+| **Demo Traffic Generator** | Seeds realistic query traffic (tiered by table size) so new accounts can see meaningful scores without waiting for organic usage. |
 
-### Architecture
+The goal is to make the ROI of semantic views visible to the people who fund and prioritise the work — not just the engineers who build them. When a business team can see that building 3 semantic views moved the score from 35 to 72, the case for continued investment makes itself.
+
+## Architecture
+
+> Open [`architecture.html`](architecture.html) in a browser for the full interactive diagram.
 
 ```
-+---------------------------+        +---------------------------+
-|   snowflake.account_usage |        |    information_schema     |
-|                           |        |                           |
-|  ACCESS_HISTORY           |        |  tables / columns /       |
-|  QUERY_HISTORY            |        |  table_constraints        |
-|  SESSIONS                 |        +------------+--------------+
-|  TABLES                   |                     |
-|  SEMANTIC_VIEWS           |                     |
-|  SEMANTIC_TABLES          |                     |
-|  TAG_REFERENCES           |                     |
-|  POLICY_REFERENCES        |                     |
-+------------+--------------+                     |
-             |                                    |
-             v                                    v
-    +--------+------------------------------------+--------+
-    |              Streamlit App (SiS)                     |
-    |                                                      |
-    |  +-------------+  +-------------+  +--------------+  |
-    |  | CR Table    |  | SV Quality  |  | 6-Factor     |  |
-    |  | Scoring     |  | Scoring     |  | Scan Engine  |  |
-    |  | (Cobb-      |  | (9-point    |  | (13 checks   |  |
-    |  |  Douglas)   |  |  scale)     |  |  across 6)   |  |
-    |  +------+------+  +------+------+  +------+-------+  |
-    |         |                |                |           |
-    |         v                v                v           |
-    |  +------+----------------+----------------+-------+   |
-    |  |         Composite Scoring Engine               |   |
-    |  |  AI Readiness = (Demand Cov + SV Readiness)/2  |   |
-    |  +------+-----------------------------------------+   |
-    |         |                                             |
-    |         v                                             |
-    |  +------+-------------------+  +-------------------+  |
-    |  | Tab 1: Current Scan     |  | Tab 2: Run History |  |
-    |  | Radar + bar charts      |  | Trend lines        |  |
-    |  | Gap classification      |  | Past run inspector  |  |
-    |  | Improvement actions     |  | Score comparison    |  |
-    |  +-------------------------+  +-------------------+   |
-    |  +------+-------------------+                         |
-    |  | Tab 3: 6-Factor Scan    |                         |
-    |  | Per-schema portfolio    |                         |
-    |  | Factor breakdown bars   |                         |
-    |  | Requirement detail      |                         |
-    |  +-------------------------+                         |
-    +---+--------------------------------------------------+
-        |
-        v
-    +---+----------------------------------------------+
-    |  AI_READINESS_APP.PUBLIC                         |
-    |                                                  |
-    |  SCAN_RUNS              SCAN_IMPROVEMENT_ITEMS   |
-    |  (append-only           (linked by run_id)       |
-    |   scan snapshots)                                |
-    +--------------------------------------------------+
+Snowflake Account
+=================
+
+  snowflake.account_usage          information_schema
+  +-----------------------+        +--------------------+
+  | ACCESS_HISTORY        |        | tables / columns / |
+  | QUERY_HISTORY         |        | table_constraints  |
+  | SESSIONS              |        +--------+-----------+
+  | TABLES                |                 |
+  | SEMANTIC_VIEWS/TABLES |                 |
+  | TAG_REFERENCES        |                 |
+  | POLICY_REFERENCES     |                 |
+  +-----------+-----------+                 |
+              |                             |
+              v                             v
+  +-----------+-----------------------------+-----------+
+  |               Scoring Engine                        |
+  |                                                     |
+  |  CR Table Scoring    SV Quality     6-Factor Scan   |
+  |  (Cobb-Douglas)      (9-point)      (13 checks)    |
+  +---------------------+------+-----------------------+
+                        |      |
+              +---------+      +---------+
+              v                          v
+  +-----------------------+   +-----------------------+
+  |  Streamlit Dashboard  |   |  Persistence Tables   |
+  |                       |   |                       |
+  |  Tab 1: Current Scan  |   |  SCAN_RUNS            |
+  |  Tab 2: Run History   |   |  SCAN_IMPROVEMENT_    |
+  |  Tab 3: 6-Factor Scan |   |    ITEMS              |
+  +-----------------------+   +-----------------------+
 ```
+
+## The ROI of Semantic Views
+
+This dashboard exists to answer one question for business teams: **"Is our data getting more AI-ready over time?"**
+
+Without semantic views, Cortex Agents and Cortex Analyst have to guess at table relationships, column meanings, and business logic. The result is low-quality answers that erode trust. With well-modeled SVs — primary keys declared, synonyms defined, verified queries added — answer quality improves measurably.
+
+This app makes that improvement visible:
+
+| Step | What CoCo Does | Time | ROI |
+|---|---|---|---|
+| 1. Score | Runs AI Readiness analysis across your account | Minutes | Replaces weeks of manual catalog auditing |
+| 2. Identify Gaps | Shows tables needing SVs, SVs needing VQRs | Instant | Prioritised backlog instead of guesswork |
+| 3. Build SVs | Generates semantic views from table schemas | Minutes | Self-service analytics for hundreds of users |
+| 4. Add VQRs | Creates verified queries from natural language | Minutes | Reliable, repeatable answers for recurring business questions |
+| 5. Re-Score | Validates improvement and tracks progress | Minutes | Measurable before/after proof for stakeholders |
 
 ## Scoring at a Glance
 
@@ -96,7 +95,7 @@ A table is **Consumption-Ready** at score >= 0.80.
 
 ### SV Quality (9-point scale)
 
-Primary key + synonyms + unique keys + distinct ranges + relationships + metrics + VQR saturation (0–2) + comment depth (0–1).
+Primary key + synonyms + unique keys + distinct ranges + relationships + metrics + VQR saturation (0-2) + comment depth (0-1).
 
 ### 6-Factor Scan (13 requirements)
 
@@ -130,7 +129,7 @@ snow sql -f setup.sql -c <connection>
 snow stage copy streamlit_app.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
 snow stage copy environment.yml @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
 
-# 3. Open in Snowsight → Streamlit → AI Readiness Score
+# 3. Open in Snowsight -> Streamlit -> AI Readiness Score
 ```
 
 See [references/deployment-guide.md](references/deployment-guide.md) for full details and troubleshooting.
@@ -144,12 +143,14 @@ See [references/deployment-guide.md](references/deployment-guide.md) for full de
 ## Project Structure
 
 ```
-ai_readiness_app/
+ai-readiness-app/
   streamlit_app.py              # The full Streamlit app (1600+ lines)
   environment.yml               # Snowflake Streamlit dependencies
   setup.sql                     # DDL for database, tables, stage, Streamlit object
   SKILL.md                      # CoCo skill definition for automated deployment
   README.md                     # This file
+  architecture.json             # Archify IR source
+  architecture.html             # Interactive architecture diagram (open in browser)
   references/
     scoring-methodology.md      # CR formula, SV quality scale, composite scoring
     6-factor-framework.md       # The 6 factors, 13 requirements, SQL checks
@@ -166,6 +167,7 @@ ai_readiness_app/
 
 ## Credits
 
-- Scoring methodology adapted from the bundled `ai-readiness-score` Cortex Code skill
-- 6-Factor framework from [Snowflake Labs AI-Ready Data](https://github.com/Snowflake-Labs/ai-ready-data) by Jacob Prall
+- **Scoring methodology** from the bundled [`ai-readiness-score`](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-code) Cortex Code skill — this project reuses its formulas and extends them with persistence and a visual layer
+- **6-Factor framework** from [Snowflake Labs AI-Ready Data](https://github.com/Snowflake-Labs/ai-ready-data) by Jacob Prall
+- **Architecture diagram** generated with [Archify](https://github.com/tt-a1i/archify)
 - Built with [Cortex Code](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cortex-code)

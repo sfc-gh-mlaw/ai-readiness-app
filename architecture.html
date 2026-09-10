@@ -5083,7 +5083,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <div class="pulse-dot"></div>
         <h1>AI Readiness Score</h1>
       </div>
-      <p class="subtitle">Streamlit-in-Snowflake scoring engine for Cortex AI readiness</p>
+      <p class="subtitle">Snowflake Account to Dashboard — scoring engine for Cortex AI readiness</p>
     </div>
 
     <script id="archify-guided-views-data" type="application/json">[]</script>
@@ -5131,9 +5131,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <!-- Main Diagram -->
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
-      <svg viewBox="0 0 860 598" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase">
+      <svg viewBox="0 0 1290 538" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="classic" data-quality-profile="showcase">
         <title id="archify-diagram-title">AI Readiness Score</title>
-        <desc id="archify-diagram-description">Streamlit-in-Snowflake scoring engine for Cortex AI readiness</desc>
+        <desc id="archify-diagram-description">Snowflake Account to Dashboard — scoring engine for Cortex AI readiness</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -5157,243 +5157,257 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="Snowflake Account" x="190" y="30" width="630" height="500" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="Snowflake Account" x="210" y="50" width="1040" height="420" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="1" data-composition-frame-label="snowflake.account_usage" x="630" y="30" width="190" height="500" rx="8" class="c-security-group" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="security-group" data-composition-frame-id="1" data-composition-frame-label="account_usage views" x="210" y="50" width="190" height="420" rx="8" class="c-security-group" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
-        <path data-edge-from="user" data-edge-to="streamlit" data-edge-label="Snowsight" data-edge-key="0" data-composition-points="150,287.5;220,287.5" d="M 150 287.5 L 220 287.5" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
-        <path data-edge-from="streamlit" data-edge-to="cr-engine" data-edge-label="scan" data-edge-key="1" data-composition-points="350,276;390,276;390,127.5;430,127.5" d="M 350 276 L 382 276 Q 390 276 390 268 L 390 135.5 Q 390 127.5 398 127.5 L 430 127.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="streamlit" data-edge-to="sv-engine" data-edge-key="2" data-composition-points="350,287.5;430,287.5" d="M 350 287.5 L 430 287.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="streamlit" data-edge-to="six-factor" data-edge-label="scan" data-edge-key="3" data-composition-points="350,299;390,299;390,447.5;430,447.5" d="M 350 299 L 382 299 Q 390 299 390 307 L 390 439.5 Q 390 447.5 398 447.5 L 430 447.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="cr-engine" data-edge-to="access-history" data-edge-label="reads" data-edge-key="4" data-composition-points="560,120.5;610,120.5;610,85;660,85" d="M 560 120.5 L 602 120.5 Q 610 120.5 610 112.5 L 610 93 Q 610 85 618 85 L 660 85" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="cr-engine" data-edge-to="query-history" data-edge-label="latency" data-edge-key="5" data-composition-points="560,134.5;610,134.5;610,165;660,165" d="M 560 134.5 L 602 134.5 Q 610 134.5 610 142.5 L 610 157 Q 610 165 618 165 L 660 165" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="sv-engine" data-edge-to="semantic-views" data-edge-label="quality" data-edge-key="6" data-composition-points="560,287.5;584,287.5;584,303.5;636,303.5;636,285;660,285" d="M 560 287.5 L 576 287.5 Q 584 287.5 584 295.5 L 584 295.5 Q 584 303.5 592 303.5 L 628 303.5 Q 636 303.5 636 295.5 L 636 293 Q 636 285 644 285 L 660 285" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="six-factor" data-edge-to="info-schema" data-edge-label="structural checks" data-edge-key="7" data-composition-points="560,440.5;610,440.5;610,405;660,405" d="M 560 440.5 L 602 440.5 Q 610 440.5 610 432.5 L 610 413 Q 610 405 618 405 L 660 405" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="six-factor" data-edge-to="gov-views" data-edge-label="compliance" data-edge-key="8" data-composition-points="560,454.5;610,454.5;610,485;660,485" d="M 560 454.5 L 602 454.5 Q 610 454.5 610 462.5 L 610 477 Q 610 485 618 485 L 660 485" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-        <path data-edge-from="streamlit" data-edge-to="scan-runs" data-edge-label="persist" data-edge-key="9" data-composition-points="285,315;285,440" d="M 285 315 L 285 440" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
-        <path data-edge-from="streamlit" data-edge-to="scan-items" data-edge-label="persist" data-edge-key="10" data-composition-points="285,260;285,150" d="M 285 260 L 285 150" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="account" data-edge-to="access-history" data-edge-label="metadata" data-edge-key="0" data-composition-points="160,240.5;200,240.5;200,105;240,105" d="M 160 240.5 L 192 240.5 Q 200 240.5 200 232.5 L 200 113 Q 200 105 208 105 L 240 105" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="account" data-edge-to="info-schema" data-edge-label="metadata" data-edge-key="1" data-composition-points="160,254.5;200,254.5;200,345;240,345" d="M 160 254.5 L 192 254.5 Q 200 254.5 200 262.5 L 200 337 Q 200 345 208 345 L 240 345" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="access-history" data-edge-to="streamlit" data-edge-key="2" data-composition-points="370,105;420,105;420,236;470,236" d="M 370 105 L 412 105 Q 420 105 420 113 L 420 228 Q 420 236 428 236 L 470 236" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+        <path data-edge-from="query-history" data-edge-to="streamlit" data-edge-key="3" data-composition-points="370,185;420,185;420,241.75;470,241.75" d="M 370 185 L 412 185 Q 420 185 420 193 L 420 233.75 Q 420 241.75 428 241.75 L 470 241.75" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="semantic-views" data-edge-to="streamlit" data-edge-key="4" data-composition-points="370,265;420,265;420,247.5;470,247.5" d="M 370 265 L 412 265 Q 420 265 420 257 L 420 255.5 Q 420 247.5 428 247.5 L 470 247.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="info-schema" data-edge-to="streamlit" data-edge-key="5" data-composition-points="370,345;420,345;420,253.25;470,253.25" d="M 370 345 L 412 345 Q 420 345 420 337 L 420 261.25 Q 420 253.25 428 253.25 L 470 253.25" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="gov-views" data-edge-to="streamlit" data-edge-key="6" data-composition-points="370,425;420,425;420,259;470,259" d="M 370 425 L 412 425 Q 420 425 420 417 L 420 267 Q 420 259 428 259 L 470 259" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="streamlit" data-edge-to="cr-engine" data-edge-label="score" data-edge-key="7" data-composition-points="600,236;640,236;640,125;680,125" d="M 600 236 L 632 236 Q 640 236 640 228 L 640 133 Q 640 125 648 125 L 680 125" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="streamlit" data-edge-to="sv-engine" data-edge-key="8" data-composition-points="600,247.5;680,247.5" d="M 600 247.5 L 680 247.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="streamlit" data-edge-to="six-factor" data-edge-label="scan" data-edge-key="9" data-composition-points="600,259;640,259;640,365;680,365" d="M 600 259 L 632 259 Q 640 259 640 267 L 640 357 Q 640 365 648 365 L 680 365" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="cr-engine" data-edge-to="scan-runs" data-edge-label="persist" data-edge-key="10" data-composition-points="800,125;845,125;845,185;890,185" d="M 800 125 L 837 125 Q 845 125 845 133 L 845 177 Q 845 185 853 185 L 890 185" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="six-factor" data-edge-to="scan-items" data-edge-label="persist" data-edge-key="11" data-composition-points="800,365;845,365;845,305;890,305" d="M 800 365 L 837 365 Q 845 365 845 357 L 845 313 Q 845 305 853 305 L 890 305" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="scan-runs" data-edge-to="dashboard" data-edge-label="history" data-edge-key="12" data-composition-points="1020,185;1060,185;1060,240.5;1100,240.5" d="M 1020 185 L 1052 185 Q 1060 185 1060 193 L 1060 232.5 Q 1060 240.5 1068 240.5 L 1100 240.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <path data-edge-from="scan-items" data-edge-to="dashboard" data-edge-label="actions" data-edge-key="13" data-composition-points="1020,305;1060,305;1060,254.5;1100,254.5" d="M 1020 305 L 1052 305 Q 1060 305 1060 297 L 1060 262.5 Q 1060 254.5 1068 254.5 L 1100 254.5" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
 
         <!-- Components -->
-        <g id="node-user" data-node-id="user" data-node-label="User" tabindex="0" role="button" aria-label="Focus User, Snowsight Browser, Architecture component" aria-pressed="false" data-node-kind="external" data-node-sublabel="Snowsight Browser" data-node-context="Architecture component">
-          <title>User · Snowsight Browser · Architecture component</title>
-          <rect x="40" y="260" width="110" height="55" rx="6" class="c-mask"/>
-          <rect x="40" y="260" width="110" height="55" rx="6" class="c-external" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="external" class="semantic-sigil s-external" transform="translate(46 266) scale(0.6875)">
-            <rect x="2.5" y="5" width="8.5" height="8" rx="1.5"/>
-            <path d="M8 2.5h5.5V8M13.5 2.5 7.5 8.5"/>
+        <g id="node-account" data-node-id="account" data-node-label="Snowflake Account" tabindex="0" role="button" aria-label="Focus Snowflake Account, Enterprise Edition, Architecture component" aria-pressed="false" data-node-kind="cloud" data-node-sublabel="Enterprise Edition" data-node-context="Architecture component">
+          <title>Snowflake Account · Enterprise Edition · Architecture component</title>
+          <rect x="40" y="220" width="120" height="55" rx="6" class="c-mask"/>
+          <rect x="40" y="220" width="120" height="55" rx="6" class="c-cloud" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(46 226) scale(0.6875)">
+            <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="95" y="285.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">User</text>
-        <text data-detail="context" x="95" y="301.5" class="t-muted" font-size="9" text-anchor="middle">Snowsight Browser</text>
+          <text data-node-label="" data-detail-anchor="" x="100" y="245.5" class="t-primary" font-size="10.9" font-weight="600" text-anchor="middle">Snowflake Account</text>
+        <text data-detail="context" x="100" y="261.5" class="t-muted" font-size="9" text-anchor="middle">Enterprise Edition</text>
         </g>
 
-        <g id="node-streamlit" data-node-id="streamlit" data-node-label="Streamlit App" tabindex="0" role="button" aria-label="Focus Streamlit App, AI Readiness Score, Snowflake Account" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="AI Readiness Score" data-node-tag="3 tabs" data-node-context="Snowflake Account">
-          <title>Streamlit App · AI Readiness Score · Snowflake Account · 3 tabs</title>
-          <rect x="220" y="260" width="130" height="55" rx="6" class="c-mask"/>
-          <rect x="220" y="260" width="130" height="55" rx="6" class="c-frontend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(226 266) scale(0.6875)">
+        <g id="node-access-history" data-node-id="access-history" data-node-label="ACCESS_HISTORY" tabindex="0" role="button" aria-label="Focus ACCESS_HISTORY, reads + writes, Snowflake Account › account_usage views" aria-pressed="false" data-node-kind="database" data-node-sublabel="reads + writes" data-node-context="Snowflake Account › account_usage views">
+          <title>ACCESS_HISTORY · reads + writes · Snowflake Account › account_usage views</title>
+          <rect x="240" y="80" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="240" y="80" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(246 86) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="305" y="103" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ACCESS_HISTORY</text>
+        <text data-detail="context" x="305" y="119" class="t-muted" font-size="9" text-anchor="middle">reads + writes</text>
+        </g>
+
+        <g id="node-query-history" data-node-id="query-history" data-node-label="QUERY_HISTORY" tabindex="0" role="button" aria-label="Focus QUERY_HISTORY, latency + type, Snowflake Account › account_usage views" aria-pressed="false" data-node-kind="database" data-node-sublabel="latency + type" data-node-context="Snowflake Account › account_usage views">
+          <title>QUERY_HISTORY · latency + type · Snowflake Account › account_usage views</title>
+          <rect x="240" y="160" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="240" y="160" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(246 166) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="305" y="183" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">QUERY_HISTORY</text>
+        <text data-detail="context" x="305" y="199" class="t-muted" font-size="9" text-anchor="middle">latency + type</text>
+        </g>
+
+        <g id="node-semantic-views" data-node-id="semantic-views" data-node-label="SEMANTIC_VIEWS" tabindex="0" role="button" aria-label="Focus SEMANTIC_VIEWS, SV metadata, Snowflake Account › account_usage views" aria-pressed="false" data-node-kind="database" data-node-sublabel="SV metadata" data-node-context="Snowflake Account › account_usage views">
+          <title>SEMANTIC_VIEWS · SV metadata · Snowflake Account › account_usage views</title>
+          <rect x="240" y="240" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="240" y="240" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(246 246) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="305" y="263" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SEMANTIC_VIEWS</text>
+        <text data-detail="context" x="305" y="279" class="t-muted" font-size="9" text-anchor="middle">SV metadata</text>
+        </g>
+
+        <g id="node-info-schema" data-node-id="info-schema" data-node-label="INFORMATION_SCHEMA" tabindex="0" role="button" aria-label="Focus INFORMATION_SCHEMA, tables, columns, Snowflake Account" aria-pressed="false" data-node-kind="database" data-node-sublabel="tables, columns" data-node-context="Snowflake Account">
+          <title>INFORMATION_SCHEMA · tables, columns · Snowflake Account</title>
+          <rect x="240" y="320" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="240" y="320" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(246 326) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="305" y="343" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">INFORMATION_SCHEMA</text>
+        <text data-detail="context" x="305" y="359" class="t-muted" font-size="9" text-anchor="middle">tables, columns</text>
+        </g>
+
+        <g id="node-gov-views" data-node-id="gov-views" data-node-label="TAG + POLICY REFS" tabindex="0" role="button" aria-label="Focus TAG + POLICY REFS, governance, Snowflake Account › account_usage views" aria-pressed="false" data-node-kind="database" data-node-sublabel="governance" data-node-context="Snowflake Account › account_usage views">
+          <title>TAG + POLICY REFS · governance · Snowflake Account › account_usage views</title>
+          <rect x="240" y="400" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="240" y="400" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(246 406) scale(0.6875)">
+            <ellipse cx="8" cy="4" rx="5" ry="2"/>
+            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="305" y="423" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">TAG + POLICY REFS</text>
+        <text data-detail="context" x="305" y="439" class="t-muted" font-size="9" text-anchor="middle">governance</text>
+        </g>
+
+        <g id="node-streamlit" data-node-id="streamlit" data-node-label="Streamlit App" tabindex="0" role="button" aria-label="Focus Streamlit App, AI Readiness Score, Snowflake Account" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="AI Readiness Score" data-node-tag="SiS" data-node-context="Snowflake Account">
+          <title>Streamlit App · AI Readiness Score · Snowflake Account · SiS</title>
+          <rect x="470" y="220" width="130" height="55" rx="6" class="c-mask"/>
+          <rect x="470" y="220" width="130" height="55" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(476 226) scale(0.6875)">
             <rect x="2" y="3" width="12" height="10" rx="2"/>
             <path d="M2 6.5h12"/>
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="285" y="285.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Streamlit App</text>
-        <text data-detail="context" x="285" y="301.5" class="t-muted" font-size="9" text-anchor="middle">AI Readiness Score</text>
-        <text data-detail="fine" x="285" y="307" class="t-frontend" font-size="7" text-anchor="middle">3 tabs</text>
+          <text data-node-label="" data-detail-anchor="" x="535" y="245.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Streamlit App</text>
+        <text data-detail="context" x="535" y="261.5" class="t-muted" font-size="9" text-anchor="middle">AI Readiness Score</text>
+        <text data-detail="fine" x="535" y="267" class="t-frontend" font-size="7" text-anchor="middle">SiS</text>
         </g>
 
-        <g id="node-cr-engine" data-node-id="cr-engine" data-node-label="CR Scoring" tabindex="0" role="button" aria-label="Focus CR Scoring, Cobb-Douglas blend, Snowflake Account" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Cobb-Douglas blend" data-node-tag="4 signals" data-node-context="Snowflake Account">
-          <title>CR Scoring · Cobb-Douglas blend · Snowflake Account · 4 signals</title>
-          <rect x="430" y="100" width="130" height="55" rx="6" class="c-mask"/>
-          <rect x="430" y="100" width="130" height="55" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(436 106) scale(0.6875)">
+        <g id="node-cr-engine" data-node-id="cr-engine" data-node-label="CR Scoring" tabindex="0" role="button" aria-label="Focus CR Scoring, Cobb-Douglas, Snowflake Account" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Cobb-Douglas" data-node-tag="4 signals" data-node-context="Snowflake Account">
+          <title>CR Scoring · Cobb-Douglas · Snowflake Account · 4 signals</title>
+          <rect x="680" y="100" width="120" height="50" rx="6" class="c-mask"/>
+          <rect x="680" y="100" width="120" height="50" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(686 106) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="495" y="125.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">CR Scoring</text>
-        <text data-detail="context" x="495" y="141.5" class="t-muted" font-size="9" text-anchor="middle">Cobb-Douglas blend</text>
-        <text data-detail="fine" x="495" y="147" class="t-backend" font-size="7" text-anchor="middle">4 signals</text>
+          <text data-node-label="" data-detail-anchor="" x="740" y="123" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">CR Scoring</text>
+        <text data-detail="context" x="740" y="139" class="t-muted" font-size="9" text-anchor="middle">Cobb-Douglas</text>
+        <text data-detail="fine" x="740" y="142" class="t-backend" font-size="7" text-anchor="middle">4 signals</text>
         </g>
 
         <g id="node-sv-engine" data-node-id="sv-engine" data-node-label="SV Quality" tabindex="0" role="button" aria-label="Focus SV Quality, 9-point scale, Snowflake Account" aria-pressed="false" data-node-kind="backend" data-node-sublabel="9-point scale" data-node-tag="9 signals" data-node-context="Snowflake Account">
           <title>SV Quality · 9-point scale · Snowflake Account · 9 signals</title>
-          <rect x="430" y="260" width="130" height="55" rx="6" class="c-mask"/>
-          <rect x="430" y="260" width="130" height="55" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(436 266) scale(0.6875)">
+          <rect x="680" y="220" width="120" height="50" rx="6" class="c-mask"/>
+          <rect x="680" y="220" width="120" height="50" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(686 226) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="495" y="285.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SV Quality</text>
-        <text data-detail="context" x="495" y="301.5" class="t-muted" font-size="9" text-anchor="middle">9-point scale</text>
-        <text data-detail="fine" x="495" y="307" class="t-backend" font-size="7" text-anchor="middle">9 signals</text>
+          <text data-node-label="" data-detail-anchor="" x="740" y="243" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SV Quality</text>
+        <text data-detail="context" x="740" y="259" class="t-muted" font-size="9" text-anchor="middle">9-point scale</text>
+        <text data-detail="fine" x="740" y="262" class="t-backend" font-size="7" text-anchor="middle">9 signals</text>
         </g>
 
         <g id="node-six-factor" data-node-id="six-factor" data-node-label="6-Factor Scan" tabindex="0" role="button" aria-label="Focus 6-Factor Scan, 13 requirements, Snowflake Account" aria-pressed="false" data-node-kind="backend" data-node-sublabel="13 requirements" data-node-tag="6 factors" data-node-context="Snowflake Account">
           <title>6-Factor Scan · 13 requirements · Snowflake Account · 6 factors</title>
-          <rect x="430" y="420" width="130" height="55" rx="6" class="c-mask"/>
-          <rect x="430" y="420" width="130" height="55" rx="6" class="c-backend" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(436 426) scale(0.6875)">
+          <rect x="680" y="340" width="120" height="50" rx="6" class="c-mask"/>
+          <rect x="680" y="340" width="120" height="50" rx="6" class="c-backend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(686 346) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="495" y="445.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6-Factor Scan</text>
-        <text data-detail="context" x="495" y="461.5" class="t-muted" font-size="9" text-anchor="middle">13 requirements</text>
-        <text data-detail="fine" x="495" y="467" class="t-backend" font-size="7" text-anchor="middle">6 factors</text>
-        </g>
-
-        <g id="node-access-history" data-node-id="access-history" data-node-label="ACCESS_HISTORY" tabindex="0" role="button" aria-label="Focus ACCESS_HISTORY, reads + writes, Snowflake Account › snowflake.account_usage" aria-pressed="false" data-node-kind="database" data-node-sublabel="reads + writes" data-node-context="Snowflake Account › snowflake.account_usage">
-          <title>ACCESS_HISTORY · reads + writes · Snowflake Account › snowflake.account_usage</title>
-          <rect x="660" y="60" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="660" y="60" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(666 66) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="725" y="83" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">ACCESS_HISTORY</text>
-        <text data-detail="context" x="725" y="99" class="t-muted" font-size="9" text-anchor="middle">reads + writes</text>
-        </g>
-
-        <g id="node-query-history" data-node-id="query-history" data-node-label="QUERY_HISTORY" tabindex="0" role="button" aria-label="Focus QUERY_HISTORY, latency, Snowflake Account › snowflake.account_usage" aria-pressed="false" data-node-kind="database" data-node-sublabel="latency" data-node-context="Snowflake Account › snowflake.account_usage">
-          <title>QUERY_HISTORY · latency · Snowflake Account › snowflake.account_usage</title>
-          <rect x="660" y="140" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="660" y="140" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(666 146) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="725" y="163" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">QUERY_HISTORY</text>
-        <text data-detail="context" x="725" y="179" class="t-muted" font-size="9" text-anchor="middle">latency</text>
-        </g>
-
-        <g id="node-semantic-views" data-node-id="semantic-views" data-node-label="SEMANTIC_VIEWS" tabindex="0" role="button" aria-label="Focus SEMANTIC_VIEWS, SV metadata, Snowflake Account › snowflake.account_usage" aria-pressed="false" data-node-kind="database" data-node-sublabel="SV metadata" data-node-context="Snowflake Account › snowflake.account_usage">
-          <title>SEMANTIC_VIEWS · SV metadata · Snowflake Account › snowflake.account_usage</title>
-          <rect x="660" y="260" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="660" y="260" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(666 266) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="725" y="283" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SEMANTIC_VIEWS</text>
-        <text data-detail="context" x="725" y="299" class="t-muted" font-size="9" text-anchor="middle">SV metadata</text>
-        </g>
-
-        <g id="node-info-schema" data-node-id="info-schema" data-node-label="INFORMATION_SCHEMA" tabindex="0" role="button" aria-label="Focus INFORMATION_SCHEMA, tables, columns, Snowflake Account" aria-pressed="false" data-node-kind="database" data-node-sublabel="tables, columns" data-node-context="Snowflake Account">
-          <title>INFORMATION_SCHEMA · tables, columns · Snowflake Account</title>
-          <rect x="660" y="380" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="660" y="380" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(666 386) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="725" y="403" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">INFORMATION_SCHEMA</text>
-        <text data-detail="context" x="725" y="419" class="t-muted" font-size="9" text-anchor="middle">tables, columns</text>
-        </g>
-
-        <g id="node-gov-views" data-node-id="gov-views" data-node-label="TAG + POLICY REFS" tabindex="0" role="button" aria-label="Focus TAG + POLICY REFS, governance, Snowflake Account › snowflake.account_usage" aria-pressed="false" data-node-kind="database" data-node-sublabel="governance" data-node-context="Snowflake Account › snowflake.account_usage">
-          <title>TAG + POLICY REFS · governance · Snowflake Account › snowflake.account_usage</title>
-          <rect x="660" y="460" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="660" y="460" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(666 466) scale(0.6875)">
-            <ellipse cx="8" cy="4" rx="5" ry="2"/>
-            <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
-          </g>
-          <text data-node-label="" data-detail-anchor="" x="725" y="483" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">TAG + POLICY REFS</text>
-        <text data-detail="context" x="725" y="499" class="t-muted" font-size="9" text-anchor="middle">governance</text>
+          <text data-node-label="" data-detail-anchor="" x="740" y="363" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">6-Factor Scan</text>
+        <text data-detail="context" x="740" y="379" class="t-muted" font-size="9" text-anchor="middle">13 requirements</text>
+        <text data-detail="fine" x="740" y="382" class="t-backend" font-size="7" text-anchor="middle">6 factors</text>
         </g>
 
         <g id="node-scan-runs" data-node-id="scan-runs" data-node-label="SCAN_RUNS" tabindex="0" role="button" aria-label="Focus SCAN_RUNS, append-only history, Snowflake Account" aria-pressed="false" data-node-kind="database" data-node-sublabel="append-only history" data-node-context="Snowflake Account">
           <title>SCAN_RUNS · append-only history · Snowflake Account</title>
-          <rect x="220" y="440" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="220" y="440" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(226 446) scale(0.6875)">
+          <rect x="890" y="160" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="890" y="160" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(896 166) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="285" y="463" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SCAN_RUNS</text>
-        <text data-detail="context" x="285" y="479" class="t-muted" font-size="9" text-anchor="middle">append-only history</text>
+          <text data-node-label="" data-detail-anchor="" x="955" y="183" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">SCAN_RUNS</text>
+        <text data-detail="context" x="955" y="199" class="t-muted" font-size="9" text-anchor="middle">append-only history</text>
         </g>
 
         <g id="node-scan-items" data-node-id="scan-items" data-node-label="IMPROVEMENT_ITEMS" tabindex="0" role="button" aria-label="Focus IMPROVEMENT_ITEMS, per-run actions, Snowflake Account" aria-pressed="false" data-node-kind="database" data-node-sublabel="per-run actions" data-node-context="Snowflake Account">
           <title>IMPROVEMENT_ITEMS · per-run actions · Snowflake Account</title>
-          <rect x="220" y="100" width="130" height="50" rx="6" class="c-mask"/>
-          <rect x="220" y="100" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
-          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(226 106) scale(0.6875)">
+          <rect x="890" y="280" width="130" height="50" rx="6" class="c-mask"/>
+          <rect x="890" y="280" width="130" height="50" rx="6" class="c-database" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(896 286) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="285" y="123" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">IMPROVEMENT_ITEMS</text>
-        <text data-detail="context" x="285" y="139" class="t-muted" font-size="9" text-anchor="middle">per-run actions</text>
+          <text data-node-label="" data-detail-anchor="" x="955" y="303" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">IMPROVEMENT_ITEMS</text>
+        <text data-detail="context" x="955" y="319" class="t-muted" font-size="9" text-anchor="middle">per-run actions</text>
+        </g>
+
+        <g id="node-dashboard" data-node-id="dashboard" data-node-label="Dashboard" tabindex="0" role="button" aria-label="Focus Dashboard, 3 tabs in Snowsight, Snowflake Account" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="3 tabs in Snowsight" data-node-tag="business users" data-node-context="Snowflake Account">
+          <title>Dashboard · 3 tabs in Snowsight · Snowflake Account · business users</title>
+          <rect x="1100" y="220" width="120" height="55" rx="6" class="c-mask"/>
+          <rect x="1100" y="220" width="120" height="55" rx="6" class="c-frontend" stroke-width="1.5"/>
+          <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(1106 226) scale(0.6875)">
+            <rect x="2" y="3" width="12" height="10" rx="2"/>
+            <path d="M2 6.5h12"/>
+            <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
+            <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
+          </g>
+          <text data-node-label="" data-detail-anchor="" x="1160" y="245.5" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Dashboard</text>
+        <text data-detail="context" x="1160" y="261.5" class="t-muted" font-size="9" text-anchor="middle">3 tabs in Snowsight</text>
+        <text data-detail="fine" x="1160" y="267" class="t-frontend" font-size="7" text-anchor="middle">business users</text>
         </g>
 
         <!-- Connection labels -->
-        <g data-detail="context" data-edge-from="user" data-edge-to="streamlit" data-edge-label="Snowsight" data-edge-key="0">
-          <rect x="158.4" y="267.5" width="53.199999999999996" height="14" rx="3" class="c-mask"/>
-          <text x="185" y="277.5" class="t-backend" font-size="8" text-anchor="middle">Snowsight</text>
+        <g data-detail="context" data-edge-from="account" data-edge-to="access-history" data-edge-label="metadata" data-edge-key="0">
+          <rect x="175.8" y="152.75" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="200" y="162.75" class="t-messagebus" font-size="8" text-anchor="middle">metadata</text>
         </g>
-        <g data-detail="context" data-edge-from="streamlit" data-edge-to="cr-engine" data-edge-label="scan" data-edge-key="1">
-          <rect x="375" y="171.75" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="390" y="181.75" class="t-muted" font-size="8" text-anchor="middle">scan</text>
+        <g data-detail="context" data-edge-from="account" data-edge-to="info-schema" data-edge-label="metadata" data-edge-key="1">
+          <rect x="175.8" y="279.75" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="200" y="289.75" class="t-messagebus" font-size="8" text-anchor="middle">metadata</text>
         </g>
 
-        <g data-detail="context" data-edge-from="streamlit" data-edge-to="six-factor" data-edge-label="scan" data-edge-key="3">
-          <rect x="375" y="363.25" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="390" y="373.25" class="t-muted" font-size="8" text-anchor="middle">scan</text>
+
+
+
+
+        <g data-detail="context" data-edge-from="streamlit" data-edge-to="cr-engine" data-edge-label="score" data-edge-key="7">
+          <rect x="623" y="160.5" width="34" height="14" rx="3" class="c-mask"/>
+          <text x="640" y="170.5" class="t-muted" font-size="8" text-anchor="middle">score</text>
         </g>
-        <g data-detail="context" data-edge-from="cr-engine" data-edge-to="access-history" data-edge-label="reads" data-edge-key="4">
-          <rect x="593" y="82.75" width="34" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="92.75" class="t-muted" font-size="8" text-anchor="middle">reads</text>
+
+        <g data-detail="context" data-edge-from="streamlit" data-edge-to="six-factor" data-edge-label="scan" data-edge-key="9">
+          <rect x="625" y="292" width="30" height="14" rx="3" class="c-mask"/>
+          <text x="640" y="302" class="t-muted" font-size="8" text-anchor="middle">scan</text>
         </g>
-        <g data-detail="context" data-edge-from="cr-engine" data-edge-to="query-history" data-edge-label="latency" data-edge-key="5">
-          <rect x="588.2" y="129.75" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="139.75" class="t-muted" font-size="8" text-anchor="middle">latency</text>
+        <g data-detail="context" data-edge-from="cr-engine" data-edge-to="scan-runs" data-edge-label="persist" data-edge-key="10">
+          <rect x="823.2" y="135" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="845" y="145" class="t-messagebus" font-size="8" text-anchor="middle">persist</text>
         </g>
-        <g data-detail="context" data-edge-from="sv-engine" data-edge-to="semantic-views" data-edge-label="quality" data-edge-key="6">
-          <rect x="562.2" y="267.5" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="584" y="277.5" class="t-muted" font-size="8" text-anchor="middle">quality</text>
+        <g data-detail="context" data-edge-from="six-factor" data-edge-to="scan-items" data-edge-label="persist" data-edge-key="11">
+          <rect x="823.2" y="315" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="845" y="325" class="t-messagebus" font-size="8" text-anchor="middle">persist</text>
         </g>
-        <g data-detail="context" data-edge-from="six-factor" data-edge-to="info-schema" data-edge-label="structural checks" data-edge-key="7">
-          <rect x="564.2" y="402.75" width="91.6" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="412.75" class="t-muted" font-size="8" text-anchor="middle">structural checks</text>
+        <g data-detail="context" data-edge-from="scan-runs" data-edge-to="dashboard" data-edge-label="history" data-edge-key="12">
+          <rect x="1038.2" y="192.75" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="1060" y="202.75" class="t-muted" font-size="8" text-anchor="middle">history</text>
         </g>
-        <g data-detail="context" data-edge-from="six-factor" data-edge-to="gov-views" data-edge-label="compliance" data-edge-key="8">
-          <rect x="581" y="449.75" width="58" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="459.75" class="t-muted" font-size="8" text-anchor="middle">compliance</text>
-        </g>
-        <g data-detail="context" data-edge-from="streamlit" data-edge-to="scan-runs" data-edge-label="persist" data-edge-key="9">
-          <rect x="263.2" y="325" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="285" y="335" class="t-messagebus" font-size="8" text-anchor="middle">persist</text>
-        </g>
-        <g data-detail="context" data-edge-from="streamlit" data-edge-to="scan-items" data-edge-label="persist" data-edge-key="10">
-          <rect x="263.2" y="210" width="43.6" height="14" rx="3" class="c-mask"/>
-          <text x="285" y="220" class="t-messagebus" font-size="8" text-anchor="middle">persist</text>
+        <g data-detail="context" data-edge-from="scan-items" data-edge-to="dashboard" data-edge-label="actions" data-edge-key="13">
+          <rect x="1038.2" y="259.75" width="43.6" height="14" rx="3" class="c-mask"/>
+          <text x="1060" y="269.75" class="t-muted" font-size="8" text-anchor="middle">actions</text>
         </g>
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
         <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="Snowflake Account">
-          <rect data-graph-role="structural-frame-label-mask" x="194" y="40" width="101.8" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="198" y="53" class="t-cloud" font-size="9" font-weight="600">Snowflake Account</text>
+          <rect data-graph-role="structural-frame-label-mask" x="214" y="42" width="101.8" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="218" y="55" class="t-cloud" font-size="9" font-weight="600">Snowflake Account</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="security-group" data-composition-frame-label="snowflake.account_usage">
-          <rect data-graph-role="structural-frame-label-mask" x="634" y="40" width="134.2" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="638" y="53" class="t-security" font-size="9" font-weight="600">snowflake.account_usage</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="security-group" data-composition-frame-label="account_usage views">
+          <rect data-graph-role="structural-frame-label-mask" x="214" y="60" width="112.6" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="218" y="73" class="t-security" font-size="9" font-weight="600">account_usage views</text>
         </g>
 
         <!-- Legend -->
         <g data-legend="" data-legend-bridge="">
-          <text x="40" y="562" class="t-primary" font-size="12" font-weight="650">Legend</text>
-          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="582" data-legend-width="83">
-            <rect x="40" y="573" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
-            <text x="62" y="582" class="t-muted" font-size="10" font-weight="500">Frontend</text>
+          <text x="40" y="502" class="t-primary" font-size="12" font-weight="650">Legend</text>
+          <g data-legend-semantic-kind="frontend" data-legend-kind="frontend" data-legend-label="Frontend" data-legend-x="40" data-legend-baseline="522" data-legend-width="83">
+            <rect x="40" y="513" width="16" height="10" rx="2.5" class="c-frontend" stroke-width="1"/>
+            <text x="62" y="522" class="t-muted" font-size="10" font-weight="500">Frontend</text>
           </g>
-          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="582" data-legend-width="78">
-            <rect x="145" y="573" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
-            <text x="167" y="582" class="t-muted" font-size="10" font-weight="500">Backend</text>
+          <g data-legend-semantic-kind="backend" data-legend-kind="backend" data-legend-label="Backend" data-legend-x="145" data-legend-baseline="522" data-legend-width="78">
+            <rect x="145" y="513" width="16" height="10" rx="2.5" class="c-backend" stroke-width="1"/>
+            <text x="167" y="522" class="t-muted" font-size="10" font-weight="500">Backend</text>
           </g>
-          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="Database" data-legend-x="245" data-legend-baseline="582" data-legend-width="83">
-            <rect x="245" y="573" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
-            <text x="267" y="582" class="t-muted" font-size="10" font-weight="500">Database</text>
+          <g data-legend-semantic-kind="database" data-legend-kind="database" data-legend-label="Database" data-legend-x="245" data-legend-baseline="522" data-legend-width="83">
+            <rect x="245" y="513" width="16" height="10" rx="2.5" class="c-database" stroke-width="1"/>
+            <text x="267" y="522" class="t-muted" font-size="10" font-weight="500">Database</text>
           </g>
-          <g data-legend-semantic-kind="external" data-legend-kind="external" data-legend-label="External" data-legend-x="350" data-legend-baseline="582" data-legend-width="83">
-            <rect x="350" y="573" width="16" height="10" rx="2.5" class="c-external" stroke-width="1"/>
-            <text x="372" y="582" class="t-muted" font-size="10" font-weight="500">External</text>
+          <g data-legend-semantic-kind="cloud" data-legend-kind="cloud" data-legend-label="Cloud" data-legend-x="350" data-legend-baseline="522" data-legend-width="68">
+            <rect x="350" y="513" width="16" height="10" rx="2.5" class="c-cloud" stroke-width="1"/>
+            <text x="372" y="522" class="t-muted" font-size="10" font-weight="500">Cloud</text>
           </g>
         </g>
       </svg>
@@ -5585,36 +5599,36 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <div class="card">
         <div class="card-header">
           <div class="card-dot cyan"></div>
-          <h3>Scoring Engines</h3>
-        </div>
-        <ul>
-          <li>&bull; CR tables: Cobb-Douglas blend of activity, consumption, speed, freshness</li>
-          <li>&bull; SV quality: 9-point scale (PK, synonyms, VQRs, relationships, metrics)</li>
-          <li>&bull; Composite: AI Readiness = avg(Demand Coverage, sqrt(SV Coverage x Quality))</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-dot emerald"></div>
-          <h3>6-Factor Scan</h3>
-        </div>
-        <ul>
-          <li>&bull; Clean, Contextual, Consumable, Current, Correlated, Compliant</li>
-          <li>&bull; 13 requirements scored per schema, 0-100 with tier classification</li>
-          <li>&bull; Based on Snowflake Labs AI-Ready Data Framework (62 total requirements)</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-dot rose"></div>
           <h3>Data Sources</h3>
         </div>
         <ul>
           <li>&bull; account_usage: ACCESS_HISTORY, QUERY_HISTORY, SESSIONS, SEMANTIC_VIEWS/TABLES</li>
           <li>&bull; information_schema: tables, columns, table_constraints</li>
           <li>&bull; Governance: TAG_REFERENCES, POLICY_REFERENCES</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot emerald"></div>
+          <h3>Scoring Engines</h3>
+        </div>
+        <ul>
+          <li>&bull; CR tables: Cobb-Douglas blend of activity, consumption, speed, freshness</li>
+          <li>&bull; SV quality: 9-point scale (PK, synonyms, VQRs, relationships, metrics)</li>
+          <li>&bull; 6-Factor: Clean, Contextual, Consumable, Current, Correlated, Compliant</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot rose"></div>
+          <h3>Why This Matters</h3>
+        </div>
+        <ul>
+          <li>&bull; Business teams see AI readiness improve as SVs and VQRs are added</li>
+          <li>&bull; Append-only history tracks score progression over weeks and months</li>
+          <li>&bull; Gap waterfall tells you exactly what to fix next</li>
         </ul>
       </div>
     </div>
