@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS SCAN_RUNS (
     recommendation_text VARCHAR,
     n_all_scored        NUMBER,
     n_sv                NUMBER,
-    n_sv_covered        NUMBER
+    n_sv_covered        NUMBER,
+    report_html_path    VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS SCAN_IMPROVEMENT_ITEMS (

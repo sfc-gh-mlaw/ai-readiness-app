@@ -61,7 +61,8 @@ CREATE TABLE IF NOT EXISTS SCAN_RUNS (
     recommendation_text VARCHAR,
     n_all_scored        NUMBER,
     n_sv                NUMBER,
-    n_sv_covered        NUMBER
+    n_sv_covered        NUMBER,
+    report_html_path    VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS SCAN_IMPROVEMENT_ITEMS (
@@ -81,6 +82,7 @@ Use the Snowflake CLI to upload:
 
 ```bash
 snow stage copy <skill_dir>/streamlit_app.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite
+snow stage copy <skill_dir>/gen_report.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite
 snow stage copy <skill_dir>/environment.yml @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite
 ```
 

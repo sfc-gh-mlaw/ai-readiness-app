@@ -39,6 +39,7 @@ Or run the SQL statements in Snowsight.
 
 ```bash
 snow stage copy streamlit_app.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
+snow stage copy gen_report.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
 snow stage copy environment.yml @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
 ```
 

@@ -1539,9 +1539,12 @@ scan time minus that lag \u2014 not real-time.
 """
         )
     history_scope = st.selectbox(
-        "Filter by database scope", options=db_options, index=default_index, key="history_scope"
+        "Filter by database scope",
+        options=["All scopes"] + db_options,
+        index=0,
+        key="history_scope",
     )
-    history = load_run_history(history_scope)
+    history = load_run_history(history_scope if history_scope != "All scopes" else None)
 
     if not history:
         st.info("No past runs yet for this scope. Run a scan to start building history.")
@@ -1594,35 +1597,72 @@ scan time minus that lag \u2014 not real-time.
         else:
             st.warning(f"**Primary Gap: {gap_r}**\n\n{selected_run['recommendation_text']}")
 
+        # --- HTML Report ---
+        st.divider()
+        st.subheader("\U0001F4C4 AI Readiness Report")
+        past_html = None
+
         if selected_run.get("report_html_path"):
-            st.divider()
-            st.subheader("\U0001F4C4 HTML Report")
-            report_path = selected_run["report_html_path"]
+            # Fetch saved report from stage
             try:
                 import tempfile, os
                 local_dir = tempfile.mkdtemp()
+                report_path = selected_run["report_html_path"]
                 session.sql(
                     f"GET '{report_path}' 'file://{local_dir}/'"
                 ).collect()
                 local_file = os.path.join(local_dir, os.path.basename(report_path))
                 with open(local_file, "r", encoding="utf-8") as f:
                     past_html = f.read()
-                col_dl2, col_spacer2 = st.columns([1, 3])
-                with col_dl2:
-                    st.download_button(
-                        "\u2B07\uFE0F Download HTML report",
-                        data=past_html,
-                        file_name=os.path.basename(report_path),
-                        mime="text/html",
-                        use_container_width=True,
-                        key=f"dl_{selected_run['run_id']}",
-                    )
-                with st.expander("Preview report", expanded=False):
-                    import streamlit.components.v1 as components
-                    components.html(past_html, height=800, scrolling=True)
                 os.unlink(local_file)
-            except Exception as exc:
-                st.caption(f"Report saved at: `{report_path}` (preview unavailable: {exc})")
+            except Exception:
+                past_html = None
+
+        if past_html is None:
+            # Generate on-the-fly from stored scores (covers older runs with no saved report)
+            try:
+                run_items_for_report = load_run_items(selected_run["run_id"])
+                run_date_str = str(selected_run.get("run_ts", ""))[:10]
+                past_html = render_report_html(
+                    account_name=str(selected_run.get("account_name", "")),
+                    role=str(selected_run.get("role_name", "")),
+                    run_date=run_date_str,
+                    ai_readiness=float(selected_run.get("ai_readiness") or 0),
+                    demand_coverage=float(selected_run.get("demand_coverage") or 0),
+                    sv_readiness=float(selected_run.get("sv_readiness") or 0),
+                    sv_coverage=float(selected_run.get("sv_coverage") or 0),
+                    sv_quality=float(selected_run.get("sv_quality") or 0),
+                    n_cr_tables=int(selected_run.get("n_cr_tables") or 0),
+                    gap=str(selected_run.get("gap") or "BUILD_CR_TABLES"),
+                    recommendation=str(selected_run.get("recommendation_text") or ""),
+                    improvement_items=[
+                        {"type": it.get("item_type", ""), "target": it.get("target", ""),
+                         "detail": it.get("detail", ""), "recommendation": it.get("recommendation", "")}
+                        for it in run_items_for_report
+                    ],
+                    sample_pct=selected_run.get("sample_pct"),
+                    database_filter=str(selected_run.get("database_filter") or "All databases"),
+                )
+            except Exception:
+                past_html = None
+
+        if past_html:
+            col_dl2, col_spacer2 = st.columns([1, 3])
+            with col_dl2:
+                run_date_label = str(selected_run.get("run_ts", "latest"))[:10]
+                st.download_button(
+                    "\u2B07\uFE0F Download HTML report",
+                    data=past_html,
+                    file_name=f"ai_readiness_report_{run_date_label}_{selected_run['run_id'][:8]}.html",
+                    mime="text/html",
+                    use_container_width=True,
+                    key=f"dl_{selected_run['run_id']}",
+                )
+            with st.expander("Preview report", expanded=False):
+                import streamlit.components.v1 as components
+                components.html(past_html, height=800, scrolling=True)
+        else:
+            st.caption("Report unavailable for this run.")
 
         run_items = load_run_items(selected_run["run_id"])
         if run_items:

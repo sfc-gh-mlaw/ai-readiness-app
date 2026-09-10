@@ -21,6 +21,7 @@ This project takes the `ai-readiness-score` skill's methodology and wraps it in 
 | **Run History** | Every scan is persisted to `SCAN_RUNS` / `SCAN_IMPROVEMENT_ITEMS`. Track your AI readiness score over weeks and months as you build SVs and add VQRs. Show before/after impact to stakeholders. |
 | **Trend Charts** | Visualise score progression over time — AI Readiness, Demand Coverage, and SV Readiness on a single trend line. |
 | **Gap Waterfall** | Each scan classifies the single most impactful gap and generates prioritised improvement actions. Business teams see exactly what to fix next and why. |
+| **HTML Reports** | Every scan generates a self-contained HTML report (matching the bundled skill's styling) that can be downloaded, shared, or previewed inline. Past runs without saved reports are regenerated on-the-fly from stored scores. |
 | **6-Factor Scan** | A complementary structural assessment based on the [AI-Ready Data Framework](https://github.com/Snowflake-Labs/ai-ready-data) — 13 requirements across Clean, Contextual, Consumable, Current, Correlated, Compliant. Scored per schema with drill-down. |
 | **Demo Traffic Generator** | Seeds realistic query traffic (tiered by table size) so new accounts can see meaningful scores without waiting for organic usage. |
 
@@ -134,6 +135,45 @@ snow stage copy environment.yml @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite 
 
 See [references/deployment-guide.md](references/deployment-guide.md) for full details and troubleshooting.
 
+## Viewing HTML Reports
+
+Every scan generates a self-contained HTML report that matches the bundled `ai-readiness-score` skill's formatting — hero score, score breakdown bars, industry comparison dot strips, and an opportunities table.
+
+### Where to find reports
+
+**Current Scan tab** — after running a scan, scroll down to the "AI Readiness Report" section:
+- **Download** — click the download button to save the HTML file locally. Open it in any browser to see the full report, share it with stakeholders via email or Slack.
+- **Preview** — expand the "Preview report" section to view the report inline within the Streamlit app.
+
+**Run History tab** — select any past run from the dropdown, then scroll to "AI Readiness Report":
+- If the run has a saved report on stage (`@APP_STAGE/reports/`), it fetches and displays it.
+- If the run predates the report feature (no saved file), the app **regenerates the report on-the-fly** from the scores and improvement items stored in `SCAN_RUNS` / `SCAN_IMPROVEMENT_ITEMS`. Every past run gets a viewable report — nothing is lost.
+
+### Where reports are stored
+
+```
+@AI_READINESS_APP.PUBLIC.APP_STAGE/reports/
+  ai_readiness_report_<date>_<run_id>.html   -- one per scan (dated snapshot)
+  ai_readiness_report_latest.html            -- always the most recent scan
+```
+
+The stage path is recorded in `SCAN_RUNS.report_html_path` for each new run. You can also query it directly:
+
+```sql
+SELECT run_ts, ai_readiness, report_html_path
+FROM AI_READINESS_APP.PUBLIC.SCAN_RUNS
+WHERE report_html_path IS NOT NULL
+ORDER BY run_ts DESC;
+```
+
+### Sharing reports
+
+The HTML files are fully self-contained (no external JS, fonts via Google Fonts CDN). Download and share via:
+- Email attachment
+- Slack / Teams upload
+- Snowflake workspace (`cortex ws cp` from CoCo)
+- Any internal file share
+
 ## Prerequisites
 
 - Snowflake Enterprise Edition (for `ACCESS_HISTORY`)
@@ -144,7 +184,8 @@ See [references/deployment-guide.md](references/deployment-guide.md) for full de
 
 ```
 ai-readiness-app/
-  streamlit_app.py              # The full Streamlit app (1600+ lines)
+  streamlit_app.py              # The full Streamlit app (1800+ lines)
+  gen_report.py                 # HTML report renderer (matches bundled skill styling)
   environment.yml               # Snowflake Streamlit dependencies
   setup.sql                     # DDL for database, tables, stage, Streamlit object
   SKILL.md                      # CoCo skill definition for automated deployment
