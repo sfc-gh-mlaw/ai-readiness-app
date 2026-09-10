@@ -16,6 +16,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 from snowflake.snowpark.context import get_active_session
+from gen_report import render_html as render_report_html
 
 st.set_page_config(page_title="AI Readiness Score", page_icon="🤖", layout="wide")
 
@@ -1193,6 +1194,45 @@ def save_run_to_history(scores, account_name, role_name):
             f"(run_id, item_type, target, detail, recommendation) VALUES {values_sql}"
         ).collect()
 
+    # Generate and upload HTML report
+    try:
+        from datetime import datetime, timezone
+        report_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        html_content = render_report_html(
+            account_name=str(account_name),
+            role=str(role_name),
+            run_date=report_date,
+            ai_readiness=scores['ai_readiness'],
+            demand_coverage=scores['demand_coverage'],
+            sv_readiness=scores['sv_readiness'],
+            sv_coverage=scores['sv_coverage'],
+            sv_quality=scores['sv_quality'],
+            n_cr_tables=scores['n_cr_tables'],
+            gap=scores['gap'],
+            recommendation=recommendation_text,
+            improvement_items=items,
+            sample_pct=scores.get('sample_pct'),
+            database_filter=scores.get('database_filter', 'All databases'),
+        )
+        # Write to temp file and PUT to stage
+        import tempfile, os
+        report_filename = f"ai_readiness_report_{report_date}_{run_id[:8]}.html"
+        tmp_path = os.path.join(tempfile.gettempdir(), report_filename)
+        with open(tmp_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        session.sql(f"PUT 'file://{tmp_path}' @AI_READINESS_APP.PUBLIC.APP_STAGE/reports/ AUTO_COMPRESS=FALSE OVERWRITE=TRUE").collect()
+        # Also upload as latest
+        latest_path = os.path.join(tempfile.gettempdir(), "ai_readiness_report_latest.html")
+        with open(latest_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        session.sql(f"PUT 'file://{latest_path}' @AI_READINESS_APP.PUBLIC.APP_STAGE/reports/ AUTO_COMPRESS=FALSE OVERWRITE=TRUE").collect()
+        # Update SCAN_RUNS with the report path
+        stage_path = f"@AI_READINESS_APP.PUBLIC.APP_STAGE/reports/{report_filename}"
+        session.sql(f"UPDATE AI_READINESS_APP.PUBLIC.SCAN_RUNS SET report_html_path = '{stage_path}' WHERE run_id = '{run_id}'").collect()
+        os.unlink(tmp_path)
+    except Exception as exc:
+        pass  # Report generation is best-effort; don't break the scan
+
     return run_id
 
 
@@ -1205,7 +1245,8 @@ def load_run_history(database_filter=None):
         f"""
         SELECT run_id, run_ts, account_name, role_name, database_filter, sample_pct,
                ai_readiness, demand_coverage, sv_readiness, sv_coverage, sv_quality,
-               n_cr_tables, gap, recommendation_text, n_all_scored, n_sv, n_sv_covered
+               n_cr_tables, gap, recommendation_text, n_all_scored, n_sv, n_sv_covered,
+               report_html_path
         FROM AI_READINESS_APP.PUBLIC.SCAN_RUNS
         {where}
         ORDER BY run_ts DESC
@@ -1511,6 +1552,9 @@ scan time minus that lag \u2014 not real-time.
             st.success(selected_run["recommendation_text"])
         else:
             st.warning(f"**Primary Gap: {gap_r}**\n\n{selected_run['recommendation_text']}")
+
+        if selected_run.get("report_html_path"):
+            st.caption(f"HTML report: {selected_run['report_html_path']}")
 
         run_items = load_run_items(selected_run["run_id"])
         if run_items:
