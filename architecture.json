@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AI Readiness Score",
+    "subtitle": "Streamlit-in-Snowflake scoring engine for Cortex AI readiness",
+    "output": "architecture.html",
+    "visual_preset": "classic"
+  },
+  "components": [
+    { "id": "user", "type": "external", "label": "User", "sublabel": "Snowsight Browser", "pos": [40, 260], "size": [110, 55] },
+
+    { "id": "streamlit", "type": "frontend", "label": "Streamlit App", "sublabel": "AI Readiness Score", "pos": [220, 260], "size": [130, 55], "tag": "3 tabs" },
+
+    { "id": "cr-engine", "type": "backend", "label": "CR Scoring", "sublabel": "Cobb-Douglas blend", "pos": [430, 100], "size": [130, 55], "tag": "4 signals" },
+    { "id": "sv-engine", "type": "backend", "label": "SV Quality", "sublabel": "9-point scale", "pos": [430, 260], "size": [130, 55], "tag": "9 signals" },
+    { "id": "six-factor", "type": "backend", "label": "6-Factor Scan", "sublabel": "13 requirements", "pos": [430, 420], "size": [130, 55], "tag": "6 factors" },
+
+    { "id": "access-history", "type": "database", "label": "ACCESS_HISTORY", "sublabel": "reads + writes", "pos": [660, 60], "size": [130, 50] },
+    { "id": "query-history", "type": "database", "label": "QUERY_HISTORY", "sublabel": "latency", "pos": [660, 140], "size": [130, 50] },
+    { "id": "semantic-views", "type": "database", "label": "SEMANTIC_VIEWS", "sublabel": "SV metadata", "pos": [660, 260], "size": [130, 50] },
+    { "id": "info-schema", "type": "database", "label": "INFORMATION_SCHEMA", "sublabel": "tables, columns", "pos": [660, 380], "size": [130, 50] },
+    { "id": "gov-views", "type": "database", "label": "TAG + POLICY REFS", "sublabel": "governance", "pos": [660, 460], "size": [130, 50] },
+
+    { "id": "scan-runs", "type": "database", "label": "SCAN_RUNS", "sublabel": "append-only history", "pos": [220, 440], "size": [130, 50] },
+    { "id": "scan-items", "type": "database", "label": "IMPROVEMENT_ITEMS", "sublabel": "per-run actions", "pos": [220, 100], "size": [130, 50] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Snowflake Account", "wraps": ["streamlit", "cr-engine", "sv-engine", "six-factor", "access-history", "query-history", "semantic-views", "info-schema", "gov-views", "scan-runs", "scan-items"] },
+    { "kind": "security-group", "label": "snowflake.account_usage", "wraps": ["access-history", "query-history", "semantic-views", "gov-views"] }
+  ],
+  "connections": [
+    { "from": "user", "to": "streamlit", "label": "Snowsight", "variant": "emphasis" },
+    { "from": "streamlit", "to": "cr-engine", "label": "scan", "fromSide": "right", "toSide": "left", "labelDy": -10 },
+    { "from": "streamlit", "to": "sv-engine", "fromSide": "right", "toSide": "left" },
+    { "from": "streamlit", "to": "six-factor", "label": "scan", "fromSide": "right", "toSide": "left", "labelDy": 10 },
+    { "from": "cr-engine", "to": "access-history", "label": "reads", "fromSide": "right", "toSide": "left" },
+    { "from": "cr-engine", "to": "query-history", "label": "latency", "fromSide": "right", "toSide": "left" },
+    { "from": "sv-engine", "to": "semantic-views", "label": "quality", "fromSide": "right", "toSide": "left", "labelDy": -8 },
+    { "from": "six-factor", "to": "info-schema", "label": "structural checks", "fromSide": "right", "toSide": "left" },
+    { "from": "six-factor", "to": "gov-views", "label": "compliance", "fromSide": "right", "toSide": "left" },
+    { "from": "streamlit", "to": "scan-runs", "label": "persist", "variant": "dashed", "fromSide": "bottom", "toSide": "top", "labelDy": 30 },
+    { "from": "streamlit", "to": "scan-items", "label": "persist", "variant": "dashed", "fromSide": "top", "toSide": "bottom", "labelDy": -30 }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Scoring Engines", "items": ["CR tables: Cobb-Douglas blend of activity, consumption, speed, freshness", "SV quality: 9-point scale (PK, synonyms, VQRs, relationships, metrics)", "Composite: AI Readiness = avg(Demand Coverage, sqrt(SV Coverage x Quality))"] },
+    { "dot": "emerald", "title": "6-Factor Scan", "items": ["Clean, Contextual, Consumable, Current, Correlated, Compliant", "13 requirements scored per schema, 0-100 with tier classification", "Based on Snowflake Labs AI-Ready Data Framework (62 total requirements)"] },
+    { "dot": "rose", "title": "Data Sources", "items": ["account_usage: ACCESS_HISTORY, QUERY_HISTORY, SESSIONS, SEMANTIC_VIEWS/TABLES", "information_schema: tables, columns, table_constraints", "Governance: TAG_REFERENCES, POLICY_REFERENCES"] }
+  ]
+}
