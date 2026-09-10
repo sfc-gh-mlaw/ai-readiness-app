@@ -1388,6 +1388,28 @@ if run_clicked:
     st.session_state["last_run_id"] = save_run_to_history(
         st.session_state["scores"], account_name, role_name
     )
+    # Generate HTML report for inline display
+    try:
+        _sc = st.session_state["scores"]
+        _rec = build_recommendation(str(account_name), _sc)
+        st.session_state["report_html"] = render_report_html(
+            account_name=str(account_name),
+            role=str(role_name),
+            run_date=_sc.get("run_date", ""),
+            ai_readiness=_sc["ai_readiness"],
+            demand_coverage=_sc["demand_coverage"],
+            sv_readiness=_sc["sv_readiness"],
+            sv_coverage=_sc["sv_coverage"],
+            sv_quality=_sc["sv_quality"],
+            n_cr_tables=_sc["n_cr_tables"],
+            gap=_sc["gap"],
+            recommendation=_rec,
+            improvement_items=_sc.get("improvement_items", []),
+            sample_pct=_sc.get("sample_pct"),
+            database_filter=_sc.get("database_filter", "All databases"),
+        )
+    except Exception:
+        st.session_state["report_html"] = None
 
 scores = st.session_state.get("scores")
 
@@ -1456,6 +1478,25 @@ with tab_current:
             st.dataframe(df, use_container_width=True, hide_index=True)
         else:
             st.write("No improvement items \u2014 account is healthy or no data was scored.")
+
+        # --- HTML Report ---
+        report_html = st.session_state.get("report_html")
+        if report_html:
+            st.divider()
+            st.subheader("\U0001F4C4 AI Readiness Report")
+            st.caption("Matching the bundled `ai-readiness-score` skill report format — download or preview below.")
+            col_dl, col_spacer = st.columns([1, 3])
+            with col_dl:
+                st.download_button(
+                    "\u2B07\uFE0F Download HTML report",
+                    data=report_html,
+                    file_name=f"ai_readiness_report_{scores.get('run_date', 'latest').replace(' ', '_').replace(':', '')}.html",
+                    mime="text/html",
+                    use_container_width=True,
+                )
+            with st.expander("Preview report", expanded=False):
+                import streamlit.components.v1 as components
+                components.html(report_html, height=800, scrolling=True)
 
         st.divider()
         st.caption(
@@ -1554,7 +1595,34 @@ scan time minus that lag \u2014 not real-time.
             st.warning(f"**Primary Gap: {gap_r}**\n\n{selected_run['recommendation_text']}")
 
         if selected_run.get("report_html_path"):
-            st.caption(f"HTML report: {selected_run['report_html_path']}")
+            st.divider()
+            st.subheader("\U0001F4C4 HTML Report")
+            report_path = selected_run["report_html_path"]
+            try:
+                import tempfile, os
+                local_dir = tempfile.mkdtemp()
+                session.sql(
+                    f"GET '{report_path}' 'file://{local_dir}/'"
+                ).collect()
+                local_file = os.path.join(local_dir, os.path.basename(report_path))
+                with open(local_file, "r", encoding="utf-8") as f:
+                    past_html = f.read()
+                col_dl2, col_spacer2 = st.columns([1, 3])
+                with col_dl2:
+                    st.download_button(
+                        "\u2B07\uFE0F Download HTML report",
+                        data=past_html,
+                        file_name=os.path.basename(report_path),
+                        mime="text/html",
+                        use_container_width=True,
+                        key=f"dl_{selected_run['run_id']}",
+                    )
+                with st.expander("Preview report", expanded=False):
+                    import streamlit.components.v1 as components
+                    components.html(past_html, height=800, scrolling=True)
+                os.unlink(local_file)
+            except Exception as exc:
+                st.caption(f"Report saved at: `{report_path}` (preview unavailable: {exc})")
 
         run_items = load_run_items(selected_run["run_id"])
         if run_items:
