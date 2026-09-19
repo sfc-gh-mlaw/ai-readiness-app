@@ -113,14 +113,48 @@ Based on [Snowflake Labs' AI-Ready Data Framework](https://github.com/Snowflake-
 
 ## Quick Start
 
-### Option A: Automated (via CoCo skill)
+Pick one of three paths. **Option A** is recommended if you want to edit the app inside Snowsight and push changes back to GitHub.
 
-```bash
-cortex -c <your-connection>
-> Deploy the AI Readiness Score app
+### Option A: Git workspace in Snowsight (recommended)
+
+A Git-synced [workspace](https://docs.snowflake.com/en/user-guide/ui-snowsight/workspaces) gives you this repo as an editable project inside Snowsight, with pull/commit/push against GitHub — no local clone, no manual stage uploads.
+
+**Step 1 — Create an API integration** (one-time, needs `CREATE API INTEGRATION`, usually `ACCOUNTADMIN`).
+
+The Snowflake GitHub App is the simplest option for repos on github.com; it needs no OAuth app registration:
+
+```sql
+CREATE OR REPLACE API INTEGRATION github_api_integration
+  API_PROVIDER = git_https_api
+  API_ALLOWED_PREFIXES = ('https://github.com')
+  API_USER_AUTHENTICATION = (TYPE = SNOWFLAKE_GITHUB_APP)
+  ENABLED = TRUE;
+
+-- If a non-admin role will create the workspace:
+GRANT USAGE ON INTEGRATION github_api_integration TO ROLE <YOUR_ROLE>;
 ```
 
-### Option B: Manual
+**Step 2 — Create the workspace from this repo.**
+
+1. Sign in to Snowsight.
+2. In the navigation menu, select **Projects » Workspaces**.
+3. In the Workspaces menu, select **From Git repository**.
+4. For **Repository URL**, enter the clone URL of your fork or this repo, e.g. `https://github.com/<your-org>/ai-readiness-app`.
+5. Optionally rename the workspace (e.g. `ai-readiness-app`).
+6. For **API Integration**, select `github_api_integration` from Step 1.
+7. For the authentication method, choose one:
+   - **OAuth2** — select **Sign in**, then **Configure** next to your GitHub account and **Authorize** Snowflake Computing. Under **Permissions**, grant *Read access to metadata* and *Read and write access to code* (write access is required to push). Under **Repository access**, scope it to the repos you want, then **Save**.
+   - **Personal access token** — select the database and schema holding a `TYPE = password` secret with your GitHub username and PAT, or select **+ Secret** to create one.
+   - **Public repository** — read-only; you can pull but **cannot** commit and push.
+8. Select **Create**.
+
+**Step 3 — Deploy from the workspace.** Open `setup.sql` in the workspace, replace `<YOUR_WAREHOUSE>`, and run it. Then upload the three app files to the stage (see [Option B](#option-b-local-cli) or the upload options at the bottom of `setup.sql`).
+
+**Step 4 — Edit and push back.** Change files in the workspace, select **Changes** at the top of the folder view to review the diff (`A` added, `M` modified, `D` deleted), write a commit message, and select **Push**. If a conflict is flagged, pull first and resolve it inline.
+
+> Requirements: the repo must have at least one branch (empty repos are unsupported) and be under 2 GB. For private-network Git servers, branch management, and conflict resolution, see [Integrate workspaces with a Git repository](https://docs.snowflake.com/en/user-guide/ui-snowsight/workspaces-git) and [Connect to a Git repository over a public network](https://docs.snowflake.com/en/developer-guide/git/git-setting-up-public).
+
+### Option B: Local CLI
 
 ```bash
 # 1. Run setup SQL (edit warehouse name first)
@@ -128,9 +162,17 @@ snow sql -f setup.sql -c <connection>
 
 # 2. Upload app files
 snow stage copy streamlit_app.py @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
-snow stage copy environment.yml @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
+snow stage copy gen_report.py    @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
+snow stage copy environment.yml  @AI_READINESS_APP.PUBLIC.APP_STAGE/ --overwrite -c <connection>
 
 # 3. Open in Snowsight -> Streamlit -> AI Readiness Score
+```
+
+### Option C: Automated (via CoCo skill)
+
+```bash
+cortex -c <your-connection>
+> Deploy the AI Readiness Score app
 ```
 
 See [references/deployment-guide.md](references/deployment-guide.md) for full details and troubleshooting.
